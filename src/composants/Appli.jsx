@@ -1,11 +1,12 @@
 import "./Appli.scss";
 import Entete from "./Entete";
 import PiedDePage from "./PiedDePage";
+import Comic from "./Comic";
 
 import React, { useState } from "react";
 import ListeCommentaires from "./ListeCommentaires";
 
-const Appli = () => {
+export default function Appli() {
   const [commentaires, setCommentaires] = useState([
     { titre: "Premier commentaire", texte: "Ceci est le premier commentaire." },
     {
@@ -17,10 +18,9 @@ const Appli = () => {
   return (
     <div className="Appli">
       <Entete />
+      <Comic />
       <ListeCommentaires commentaires={commentaires} />
       <PiedDePage />
     </div>
   );
-};
-
-export default Appli;
+}
