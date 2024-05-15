@@ -1,4 +1,6 @@
 import "./Appli.scss";
+import Entete from "./Entete";
+import PiedDePage from "./PiedDePage";
 
 import React, { useState } from "react";
 import ListeCommentaires from "./ListeCommentaires";
@@ -13,9 +15,10 @@ const Appli = () => {
   ]);
 
   return (
-    <div>
-      <h1>ComicMania</h1>
+    <div className="Appli">
+      <Entete />
       <ListeCommentaires commentaires={commentaires} />
+      <PiedDePage />
     </div>
   );
 };
