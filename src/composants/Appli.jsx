@@ -2,6 +2,7 @@ import "./Appli.scss";
 import Entete from "./Entete";
 import PiedDePage from "./PiedDePage";
 import Comic from "./Comic";
+import Bouton from "./Boutons";
 
 import React, { useState } from "react";
 import ListeCommentaires from "./ListeCommentaires";
@@ -19,6 +20,7 @@ export default function Appli() {
     <div className="Appli">
       <Entete />
       <Comic />
+      <Bouton />
       <ListeCommentaires commentaires={commentaires} />
       <PiedDePage />
     </div>

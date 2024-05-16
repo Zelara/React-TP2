@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from "react";
-import * as firebase from "firebase/app";
-import "firebase/storage";
+import React from "react";
+import jseImage from "/admin/jse-3.png";
+import "./Comic.scss";
+import Aime from "./Aime";
 
 function Comic() {
-  const [imageUrl, setImageUrl] = useState("");
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      const storage = firebase.storage();
-      const storageRef = storage.ref();
-      const imageRef = storageRef.child("jse-images/jse-3.png"); // Changez le chemin de l'image ici
-
-      imageRef.getDownloadURL().then((url) => {
-        setImageUrl(url);
-      });
-    };
-
-    fetchImage();
-  }, []);
-
-  return <div>{imageUrl && <img src={imageUrl} alt="Comic" />}</div>;
+  return (
+    <div className="Comic">
+      <div>
+        <img className="comic" src={jseImage} alt="JSE 3" />
+        <Aime />
+      </div>
+    </div>
+  );
 }
 
 export default Comic;
