@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
+import "./Commentaire.scss";
 
-const Commentaire = ({ commentaire }) => {
+function Commentaire({ commentaire }) {
   return (
-    <div>
+    <div className="Commentaire">
       <h2>{commentaire.titre}</h2>
       <p>{commentaire.texte}</p>
     </div>
   );
-};
+}
 
 export default Commentaire;
