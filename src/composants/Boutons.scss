@@ -1,6 +1,19 @@
 .Boutons {
-    padding-top: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  .icone-bouton {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .icone-bouton:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
 }

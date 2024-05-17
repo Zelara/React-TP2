@@ -7,9 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
  * fédérée Google.
  */
 export function connexion() {
-  signInWithPopup(firebaseAuth, googleProvider).then((u) =>
-    console.log("Utilisateur", u)
-  );
+  signInWithPopup(firebaseAuth, googleProvider);
 }
 
 export function deconnexion() {

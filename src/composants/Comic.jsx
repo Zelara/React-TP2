@@ -6,6 +6,7 @@ import Aime from "./Aime";
 function Comic() {
   return (
     <div className="Comic">
+      <p>date</p>
       <div>
         <img className="comic" src={jseImage} alt="JSE 3" />
         <Aime />
