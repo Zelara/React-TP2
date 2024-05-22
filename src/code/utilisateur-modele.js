@@ -7,7 +7,9 @@ import { doc, setDoc } from "firebase/firestore";
  * fédérée Google.
  */
 export function connexion() {
-  signInWithPopup(firebaseAuth, googleProvider);
+  signInWithPopup(firebaseAuth, googleProvider).catch(error => {
+    console.error("Erreur lors de la connexion :", error);
+  });
 }
 
 export function deconnexion() {

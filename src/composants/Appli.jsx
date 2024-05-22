@@ -4,6 +4,8 @@ import PiedDePage from "./PiedDePage";
 import Comic from "./Comic";
 import Bouton from "./Boutons";
 
+import Admin from "./Admin";
+
 import React, { useState } from "react";
 import ListeCommentaires from "./ListeCommentaires";
 
@@ -19,9 +21,10 @@ export default function Appli() {
   return (
     <div className="Appli">
       <Entete />
+      {/* <Admin /> temporaire*/}
       <Comic />
       <Bouton />
-      <ListeCommentaires commentaires={commentaires} />
+      <ListeCommentaires />
       <PiedDePage />
     </div>
   );

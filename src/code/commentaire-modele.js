@@ -1,5 +1,5 @@
+import { collection, getDocs, query } from "firebase/firestore";
 import { bd, collBandes, collComs } from "./init";
-import { getDocs, query, collection } from "firebase/firestore";
 
 /**
  * Obtenir les commentaires d'une bande quotidienne.
@@ -9,10 +9,10 @@ import { getDocs, query, collection } from "firebase/firestore";
  */
 export async function obtenir(idBande) {
   const commentaires = await getDocs(
-    query(collection(bd, collBandes, idBande, collComs)) 
+    query(collection(bd, collBandes, idBande, collComs))
   );
   console.log(
-    "Snapshot contenant les commentaires dans Firestore : ",
+    "Snapshot contenant les commentaires dans Firestore :",
     commentaires
   );
   return commentaires.docs;
