@@ -3,6 +3,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import jseImage from "/admin/jse-3.png";
 import "./Comic.scss";
 import Aime from "./Aime";
+import formatDate from "../code/formatDate";
 
 function Comic() {
   const [dpub, setDpub] = useState("");
@@ -14,7 +15,8 @@ function Comic() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setDpub(docSnap.data().dpub);
+        const rawDpub = docSnap.data().dpub;
+        setDpub(formatDate(rawDpub));
       } else {
         console.log("Pas le document!");
       }
