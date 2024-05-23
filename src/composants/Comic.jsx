@@ -4,13 +4,13 @@ import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import "./Comic.scss";
 import Aime from "./Aime";
 import { formatDate, parseDate } from "../code/formatDate";
-import { bd, stockage, collBandes } from "../code/init"; 
-import Boutons from "./Boutons"; 
+import { bd, stockage, collBandes } from "../code/init";
+import Boutons from "./Boutons";
 
 function Comic() {
   const [bandesDessinees, setBandesDessinees] = useState([]);
   const [images, setImages] = useState([]);
-  const [indexCourant, setIndexCourant] = useState(0); 
+  const [indexCourant, setIndexCourant] = useState(0);
 
   useEffect(() => {
     const recupererBandesDessinees = async () => {
@@ -32,7 +32,7 @@ function Comic() {
         const urlsImages = await Promise.all(
           resultat.items.map((itemRef) => getDownloadURL(itemRef))
         );
-        setImages(urlsImages.filter(url => !!url));
+        setImages(urlsImages.filter((url) => !!url));
       } catch (erreur) {
         console.error("Erreur lors de la récupération des images: ", erreur);
       }
@@ -56,8 +56,11 @@ function Comic() {
 
   return (
     <div className="Comic">
-      {bandesDessinees.map((bande) => (
-        <div key={bande.id}>
+      {bandesDessinees.map((bande, index) => (
+        <div
+          key={bande.id}
+          style={{ display: index === indexCourant ? "block" : "none" }}
+        >
           <p>{formatDate(bande.dpub)}</p>
           <div>
             {bande.imageUrl && (
@@ -67,7 +70,6 @@ function Comic() {
                 alt={`JSE ${bande.imgNum}`}
               />
             )}
-            <Aime />
           </div>
         </div>
       ))}
@@ -79,8 +81,12 @@ function Comic() {
             alt={`JSE image ${indexCourant}`}
           />
         )}
+        <Aime />
       </div>
-      <Boutons onPrecedent={changerImagePrecedente} onSuivant={changerImageSuivante} />
+      <Boutons
+        onPrecedent={changerImagePrecedente}
+        onSuivant={changerImageSuivante}
+      />
     </div>
   );
 }

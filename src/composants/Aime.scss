@@ -1,14 +1,13 @@
 .Aime {
   padding-top: 1rem;
   position: absolute;
-  bottom: -2.5rem;
 
   .Aime svg {
     font-size: 2rem;
   }
 
   .icone-aime {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
     cursor: pointer;
@@ -16,6 +15,6 @@
   }
 
   .icone-aime:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.7);
   }
 }
