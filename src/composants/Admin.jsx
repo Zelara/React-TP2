@@ -1,3 +1,4 @@
+// Fichier Temporaire
 import generer from "../code/admin";
 
 export default function Admin() {
