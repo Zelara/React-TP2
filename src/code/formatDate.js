@@ -1,4 +1,4 @@
-// Pour afficher la bonne date
+// formatDate.js
 const formatDate = (dateStr) => {
     const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     const mois = [
@@ -17,5 +17,13 @@ const formatDate = (dateStr) => {
     return `${jour}, le ${day} ${moisNom} ${year}`;
   };
   
-  export default formatDate;
+  const parseDate = (dateStr) => {
+    const year = dateStr.substring(0, 4);
+    const month = parseInt(dateStr.substring(4, 6), 10) - 1;
+    const day = parseInt(dateStr.substring(6, 8), 10);
+  
+    return new Date(year, month, day);
+  };
+  
+  export { formatDate, parseDate };
   

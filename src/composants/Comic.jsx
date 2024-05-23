@@ -1,37 +1,86 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-import jseImage from "/admin/jse-3.png";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import "./Comic.scss";
 import Aime from "./Aime";
-import formatDate from "../code/formatDate";
+import { formatDate, parseDate } from "../code/formatDate";
+import { bd, stockage, collBandes } from "../code/init"; 
+import Boutons from "./Boutons"; 
 
 function Comic() {
-  const [dpub, setDpub] = useState("");
+  const [bandesDessinees, setBandesDessinees] = useState([]);
+  const [images, setImages] = useState([]);
+  const [indexCourant, setIndexCourant] = useState(0); 
 
   useEffect(() => {
-    const fetchDpub = async () => {
-      const db = getFirestore();
-      const docRef = doc(db, "jse-bandes", "1qtIk4BrxKk1qTYYkctf"); // Remplacez "ID" par l'identifiant approprié
-      const docSnap = await getDoc(docRef);
+    const recupererBandesDessinees = async () => {
+      const instantane = await getDocs(collection(bd, collBandes));
+      const donneesBandesDessinees = instantane.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      donneesBandesDessinees.sort(
+        (a, b) => parseDate(a.dpub) - parseDate(b.dpub)
+      );
+      setBandesDessinees(donneesBandesDessinees);
+    };
 
-      if (docSnap.exists()) {
-        const rawDpub = docSnap.data().dpub;
-        setDpub(formatDate(rawDpub));
-      } else {
-        console.log("Pas le document!");
+    const recupererImages = async () => {
+      const refImages = ref(stockage, "jse-images/");
+      try {
+        const resultat = await listAll(refImages);
+        const urlsImages = await Promise.all(
+          resultat.items.map((itemRef) => getDownloadURL(itemRef))
+        );
+        setImages(urlsImages.filter(url => !!url));
+      } catch (erreur) {
+        console.error("Erreur lors de la récupération des images: ", erreur);
       }
     };
 
-    fetchDpub();
+    recupererBandesDessinees();
+    recupererImages();
   }, []);
+
+  const changerImagePrecedente = () => {
+    setIndexCourant((indexPrecedent) =>
+      indexPrecedent === 0 ? images.length - 1 : indexPrecedent - 1
+    );
+  };
+
+  const changerImageSuivante = () => {
+    setIndexCourant((indexPrecedent) =>
+      indexPrecedent === images.length - 1 ? 0 : indexPrecedent + 1
+    );
+  };
 
   return (
     <div className="Comic">
-      <p>{dpub}</p>
-      <div>
-        <img className="comic" src={jseImage} alt="JSE 3" />
-        <Aime />
+      {bandesDessinees.map((bande) => (
+        <div key={bande.id}>
+          <p>{formatDate(bande.dpub)}</p>
+          <div>
+            {bande.imageUrl && (
+              <img
+                className="bande"
+                src={bande.imageUrl}
+                alt={`JSE ${bande.imgNum}`}
+              />
+            )}
+            <Aime />
+          </div>
+        </div>
+      ))}
+      <div className="images-comic">
+        {images.length > 0 && (
+          <img
+            key={indexCourant}
+            src={images[indexCourant]}
+            alt={`JSE image ${indexCourant}`}
+          />
+        )}
       </div>
+      <Boutons onPrecedent={changerImagePrecedente} onSuivant={changerImageSuivante} />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 .Aime {
-  width: 100%;
   padding-top: 1rem;
   position: absolute;
   bottom: -2.5rem;
@@ -9,7 +8,7 @@
   }
 
   .icone-aime {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.05);
     color: white;
     border: none;
     cursor: pointer;
@@ -17,6 +16,6 @@
   }
 
   .icone-aime:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 }

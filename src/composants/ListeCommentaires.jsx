@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { obtenir } from "../code/commentaire-modele";
+import "./ListeCommentaires.scss";
  
 export default function ListeCommentaires() {
     const [commentaires, setCommentaires] = useState([]);
@@ -15,8 +16,8 @@ export default function ListeCommentaires() {
     }, []);
  
     return (
-        <div>
-            <h2>Commentaires associés à la bande quotidienne :</h2>
+        <div className="ListeCommentaires">
+            <h2>Commentaires</h2>
             <ul>
                 {commentaires.map(commentaire => {
                     const votes = Object.values(commentaire.data().votes);

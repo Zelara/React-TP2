@@ -6,11 +6,16 @@
   padding-top: 2rem;
   position: relative;
   font-family: "Indie Flower", cursive;
-
-  .comic {
+  .images-comic {
     width: 100%;
     max-width: 45rem;
     border: 2px solid #000;
+    padding: 3.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & > * {
+      // styles pour tous les enfants de .images-comic
+      width: 100%;
+    }
   }
 }
