@@ -1,9 +1,6 @@
 .Aime {
-  position: absolute;
-
-  .Aime svg {
-    font-size: 2rem;
-  }
+  position: relative;
+  display: inline-block;
 
   .icone-aime {
     background-color: rgba(0, 0, 0, 0.5);
@@ -11,9 +8,26 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .icone-aime:hover {
     background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .nombre-aime {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: rgb(220, 67, 67);
+    color: white;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
   }
 }

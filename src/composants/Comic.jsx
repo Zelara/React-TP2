@@ -6,11 +6,13 @@ import Aime from "./Aime";
 import { formatDate, parseDate } from "../code/formatDate";
 import { bd, stockage, collBandes } from "../code/init";
 import Boutons from "./Boutons";
+import { useAuth } from "../code/utilisateur-modele"; // Importer le hook personnalisé
 
 function Comic() {
   const [bandesDessinees, setBandesDessinees] = useState([]);
   const [images, setImages] = useState([]);
   const [indexCourant, setIndexCourant] = useState(0);
+  const utilisateur = useAuth(); // Utiliser le hook pour obtenir l'utilisateur
 
   useEffect(() => {
     const recupererBandesDessinees = async () => {
@@ -23,7 +25,7 @@ function Comic() {
         (a, b) => parseDate(a.dpub) - parseDate(b.dpub)
       );
       setBandesDessinees(donneesBandesDessinees);
-      setIndexCourant(donneesBandesDessinees.length - 1); // Initialise à la bande dessinée la plus récente
+      setIndexCourant(donneesBandesDessinees.length - 1);
     };
 
     const recupererImages = async () => {
@@ -34,7 +36,7 @@ function Comic() {
           resultat.items.map((itemRef) => getDownloadURL(itemRef))
         );
         setImages(urlsImages.filter((url) => !!url));
-        setIndexCourant(urlsImages.length - 1); // Initialise à l'image la plus récente
+        setIndexCourant(urlsImages.length - 1);
       } catch (erreur) {
         console.error("Erreur lors de la récupération des images: ", erreur);
       }
@@ -94,7 +96,12 @@ function Comic() {
             alt={`JSE image ${indexCourant}`}
           />
         )}
-        <Aime />
+        {utilisateur && bandesDessinees.length > 0 && (
+          <Aime
+            utilisateur={utilisateur}
+            bandeId={bandesDessinees[indexCourant].id}
+          />
+        )}
       </div>
       <Boutons
         onPrecedent={changerImagePrecedente}
