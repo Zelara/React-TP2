@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import { bd, collBandes } from "../code/init";
 import { doc, updateDoc, arrayUnion, arrayRemove, getDoc } from "firebase/firestore";
 
+
 function Aime({ utilisateur, bandeId }) {
   const [aime, setAime] = useState(false);
   const [nbAimes, setNbAimes] = useState(0);

@@ -4,4 +4,27 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-}
+  
+    .BoiteCommentaire {
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 1rem;
+      background-color: #f8d7da; /* Rouge clair pour le fond */
+  
+      .NomUtilisateur {
+        font-weight: bold;
+        color: #dc3545; /* Rouge vif pour le nom d'utilisateur */
+      }
+  
+      .Likes {
+        color: #888;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+  
