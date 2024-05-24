@@ -23,6 +23,7 @@ function Comic() {
         (a, b) => parseDate(a.dpub) - parseDate(b.dpub)
       );
       setBandesDessinees(donneesBandesDessinees);
+      setIndexCourant(donneesBandesDessinees.length - 1); // Initialise à la bande dessinée la plus récente
     };
 
     const recupererImages = async () => {
@@ -33,6 +34,7 @@ function Comic() {
           resultat.items.map((itemRef) => getDownloadURL(itemRef))
         );
         setImages(urlsImages.filter((url) => !!url));
+        setIndexCourant(urlsImages.length - 1); // Initialise à l'image la plus récente
       } catch (erreur) {
         console.error("Erreur lors de la récupération des images: ", erreur);
       }
@@ -44,15 +46,26 @@ function Comic() {
 
   const changerImagePrecedente = () => {
     setIndexCourant((indexPrecedent) =>
-      indexPrecedent === 0 ? images.length - 1 : indexPrecedent - 1
+      indexPrecedent === 0 ? indexPrecedent : indexPrecedent - 1
     );
   };
 
   const changerImageSuivante = () => {
     setIndexCourant((indexPrecedent) =>
-      indexPrecedent === images.length - 1 ? 0 : indexPrecedent + 1
+      indexPrecedent === images.length - 1 ? indexPrecedent : indexPrecedent + 1
     );
   };
+
+  const allerPremierePage = () => {
+    setIndexCourant(0);
+  };
+
+  const allerDernierePage = () => {
+    setIndexCourant(images.length - 1);
+  };
+
+  const desactiverPrecedent = indexCourant === 0;
+  const desactiverSuivant = indexCourant === images.length - 1;
 
   return (
     <div className="Comic">
@@ -86,6 +99,10 @@ function Comic() {
       <Boutons
         onPrecedent={changerImagePrecedente}
         onSuivant={changerImageSuivante}
+        onPremierePage={allerPremierePage}
+        onDernierePage={allerDernierePage}
+        desactiverPrecedent={desactiverPrecedent}
+        desactiverSuivant={desactiverSuivant}
       />
     </div>
   );
