@@ -1,0 +1,16 @@
+form {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+  
+    input[type="text"] {
+      flex: 1; /* Le champ de texte prendra autant de place que possible */
+      margin-right: 8px; /* Marge à droite pour l'espace entre le champ de texte et le bouton */
+    }
+  
+    button[type="submit"] {
+      width: 100%; /* Le bouton prendra toute la largeur disponible */
+      max-width: 120px; /* Optionnel : limite la largeur maximale du bouton */
+    }
+  }
+  

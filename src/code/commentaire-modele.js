@@ -1,4 +1,4 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { bd, collBandes, collComs } from "./init";
 
 /**
@@ -16,4 +16,24 @@ export async function obtenir(idBande) {
     commentaires
   );
   return commentaires.docs;
+}
+
+/**
+ * Ajouter un commentaire à une bande quotidienne.
+ * @param {string} idBande Chaîne indiquant l'identifiant de la bande quotidienne
+ * @param {string} idUtilisateur Chaîne indiquant l'identifiant de l'utilisateur
+ * @param {string} commentaire Contenu du commentaire à ajouter
+ * @returns {Promise<void>} Promesse résolue une fois le commentaire ajouté avec succès
+ */
+export async function ajouterCommentaire(idBande, idUtilisateur, commentaire) {
+  try {
+    const docRef = await addDoc(collection(bd, collBandes, idBande, collComs), {
+      idUtilisateur,
+      commentaire,
+      date: new Date().toISOString(), // Ajoutez une date pour la référence temporelle
+    });
+    console.log("Commentaire ajouté avec ID :", docRef.id);
+  } catch (error) {
+    throw new Error("Erreur lors de l'ajout du commentaire :", error);
+  }
 }

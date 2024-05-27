@@ -8,6 +8,7 @@ import { bd, stockage, collBandes } from "../code/init";
 import Boutons from "./Boutons";
 import ListeCommentaires from "./ListeCommentaires";
 import { useAuth } from "../code/utilisateur-modele";
+import AjouterCommentaire from "./AjouterCommentaire";
 
 function Comic() {
   const [bandesDessinees, setBandesDessinees] = useState([]);
@@ -119,6 +120,7 @@ function Comic() {
         desactiverSuivant={desactiverSuivant}
       />
       <h2>Commentaires</h2>
+      <AjouterCommentaire />
       {/* Affichage des commentaires en bas des boutons */}
       {bandesDessinees.length > 0 && (
         <ListeCommentaires bandeId={bandesDessinees[indexCourant].id} />
