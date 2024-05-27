@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+import { getDocs, collection } from "firebase/firestore";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 import "./Comic.scss";
 import Aime from "./Aime";
 import { formatDate, parseDate } from "../code/formatDate";
 import { bd, stockage, collBandes } from "../code/init";
 import Boutons from "./Boutons";
-import { useAuth } from "../code/utilisateur-modele"; // Importer le hook personnalisé
+import ListeCommentaires from "./ListeCommentaires";
+import { useAuth } from "../code/utilisateur-modele";
 
 function Comic() {
   const [bandesDessinees, setBandesDessinees] = useState([]);
   const [images, setImages] = useState([]);
   const [indexCourant, setIndexCourant] = useState(0);
-  const utilisateur = useAuth(); // Utiliser le hook pour obtenir l'utilisateur
+  const utilisateur = useAuth();
 
   useEffect(() => {
     const recupererBandesDessinees = async () => {
@@ -71,11 +72,13 @@ function Comic() {
 
   return (
     <div className="Comic">
+      {/* Boucle pour afficher les bandes dessinées */}
       {bandesDessinees.map((bande, index) => (
         <div
           key={bande.id}
           style={{ display: index === indexCourant ? "block" : "none" }}
         >
+          {/* Affichage de la date au-dessus de l'image */}
           <p>{formatDate(bande.dpub)}</p>
           <div>
             {bande.imageUrl && (
@@ -88,6 +91,8 @@ function Comic() {
           </div>
         </div>
       ))}
+
+      {/* Affichage des images en haut */}
       <div className="images-comic">
         {images.length > 0 && (
           <img
@@ -103,6 +108,8 @@ function Comic() {
           />
         )}
       </div>
+
+      {/* Affichage des boutons de navigation */}
       <Boutons
         onPrecedent={changerImagePrecedente}
         onSuivant={changerImageSuivante}
@@ -111,6 +118,11 @@ function Comic() {
         desactiverPrecedent={desactiverPrecedent}
         desactiverSuivant={desactiverSuivant}
       />
+
+      {/* Affichage des commentaires en bas des boutons */}
+      {bandesDessinees.length > 0 && (
+        <ListeCommentaires bandeId={bandesDessinees[indexCourant].id} />
+      )}
     </div>
   );
 }

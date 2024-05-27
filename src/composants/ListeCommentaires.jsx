@@ -8,20 +8,20 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import IconButton from "@mui/material/IconButton";
 import "./ListeCommentaires.scss";
 
-export default function ListeCommentaires() {
+export default function ListeCommentaires({ bandeId }) {
     const [commentaires, setCommentaires] = useState([]);
-    const [utilisateur, setUtilisateur] = useState(null); // Ajouter l'état de l'utilisateur connecté
-    const [voteState, setVoteState] = useState({}); // État pour gérer le toggle des icônes de vote
+    const [utilisateur, setUtilisateur] = useState(null);
+    const [voteState, setVoteState] = useState({});
 
     async function obtenirCommentaires() {
-        const idBandeTest = "1qtIk4BrxKk1qTYYkctf";
-        let coms = await obtenir(idBandeTest);
+        if (!bandeId) return;  // S'assurer que l'ID de la bande est défini
+        let coms = await obtenir(bandeId);
         setCommentaires(coms);
     }
 
     useEffect(() => {
         obtenirCommentaires();
-    }, []);
+    }, [bandeId]);  // Ajouter bandeId comme dépendance pour relancer l'effet lorsque l'ID change
 
     const handleVote = async (commentaireId, type) => {
         // Vérifier si l'utilisateur est connecté
@@ -52,7 +52,6 @@ export default function ListeCommentaires() {
 
     return (
         <div className="ListeCommentaires">
-            <h2>Commentaires</h2>
             {commentaires.map(commentaire => {
                 const votes = commentaire.data().votes;
                 const votePositif = Object.values(votes).filter(vote => vote === 1).length;
