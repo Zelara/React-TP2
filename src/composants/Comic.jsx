@@ -118,7 +118,7 @@ function Comic() {
         desactiverPrecedent={desactiverPrecedent}
         desactiverSuivant={desactiverSuivant}
       />
-
+      <h2>Commentaires</h2>
       {/* Affichage des commentaires en bas des boutons */}
       {bandesDessinees.length > 0 && (
         <ListeCommentaires bandeId={bandesDessinees[indexCourant].id} />
